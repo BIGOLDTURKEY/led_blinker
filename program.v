@@ -27,12 +27,14 @@ reg t50 = 1'b0;
 reg t10 = 1'b0;
 reg t1 = 1'b0;
 
+reg temp_o_led = 1'b0;
+
 //100hz
 always @(posedge i_clock) begin
     if (count%(125000-1)==0) begin
         t100 = !t100;
     end if (!i_switch_1&!i_switch_2) begin
-        o_led_drive = t100;
+        temp_o_led = t100;
     end
 end
 
@@ -41,7 +43,7 @@ always @(posedge i_clock) begin
     if (count%(250000-1)==0) begin
         t50 = !t50;
     end if (!i_switch_1&i_switch_2) begin
-        o_led_drive = t50;
+        temp_o_led = t50;
     end
 end
 
@@ -50,15 +52,25 @@ always @(posedge i_clock) begin
     if (count%(1250000-1)==0) begin
         t10 = !t10;
     end if (i_switch_1&!i_switch_2) begin
-        o_led_drive = t10;
+        temp_o_led = t10;
     end
 end
 always @(posedge i_clock) begin
     if (count%(12500000-1)==0) begin
         t1 = !t1;
     end if (!i_switch_1&!i_switch_2) begin
-        o_led_drive = t1;
+        temp_o_led = t1;
     end
 end
+
+always @(posedge i_clock) begin
+    if (count>=25000000) begin
+        count=0;
+    end else begin
+        count = count+1;
+    end
+end
+
+assign o_led_drive = i_enable & temp_o_led;
 
 endmodule
