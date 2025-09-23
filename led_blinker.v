@@ -1,6 +1,12 @@
+`timescale 1ns/1ps
+
 //25MHz, %50 duty cycle
-module led_blinker(
-    input i_clock, i_enable, i_switch_1, i_switch_2,
+module led_blinker #(
+    parameter c100 = 125000-1,
+    parameter c50  = 250000-1,
+    parameter c10  = 1250000-1,
+    parameter c1   = 12500000-1
+    )(input i_clock, i_enable, i_switch_1, i_switch_2,
     output o_led_drive
 );
 
@@ -22,6 +28,7 @@ module led_blinker(
 //log2(25MHz) --> 25 bits
 reg[24:0] count = 0;
 
+//t# = toggle Hz
 reg t100 = 1'b0;
 reg t50 = 1'b0;
 reg t10 = 1'b0;
@@ -30,8 +37,8 @@ reg t1 = 1'b0;
 reg temp_o_led = 1'b0;
 
 //100hz
-always @(posedge i_clock) begin
-    if (count%(125000-1)==0) begin
+always @(posedge i_clock, count, t100) begin
+    if (count%(c100)==0) begin
         t100 = !t100;
     end if (!i_switch_1&!i_switch_2) begin
         temp_o_led = t100;
@@ -39,8 +46,8 @@ always @(posedge i_clock) begin
 end
 
 //50hz
-always @(posedge i_clock) begin
-    if (count%(250000-1)==0) begin
+always @(posedge i_clock, count, t50) begin
+    if (count%(c50)==0) begin
         t50 = !t50;
     end if (!i_switch_1&i_switch_2) begin
         temp_o_led = t50;
@@ -48,21 +55,24 @@ always @(posedge i_clock) begin
 end
 
 //10hz
-always @(posedge i_clock) begin
-    if (count%(1250000-1)==0) begin
+always @(posedge i_clock, count, t10) begin
+    if (count%(c10)==0) begin
         t10 = !t10;
     end if (i_switch_1&!i_switch_2) begin
         temp_o_led = t10;
     end
 end
-always @(posedge i_clock) begin
-    if (count%(12500000-1)==0) begin
+
+//1hz
+always @(posedge i_clock, count, t1) begin
+    if (count%(c1)==0) begin
         t1 = !t1;
     end if (!i_switch_1&!i_switch_2) begin
         temp_o_led = t1;
     end
 end
 
+//count incrementer
 always @(posedge i_clock) begin
     if (count>=25000000) begin
         count=0;
