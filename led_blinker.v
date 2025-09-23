@@ -7,7 +7,7 @@ module led_blinker #(
     parameter c10  = 1250000-1,
     parameter c1   = 12500000-1
     )(input i_clock, i_enable, i_switch_1, i_switch_2,
-    output o_led_drive
+    output o_led_drive, dbg_t100, dbg_t50, dbg_t10, dbg_t1, dbg_temp_o_led
 );
 
 //en s1 s2 Hz
@@ -33,8 +33,13 @@ reg t100 = 1'b0;
 reg t50 = 1'b0;
 reg t10 = 1'b0;
 reg t1 = 1'b0;
-
 reg temp_o_led = 1'b0;
+
+assign dbg_t100 = t100;
+assign dbg_t50 = t50;
+assign dbg_t10 = t10;
+assign dbg_t1 = t1;
+assign dbg_temp_o_led = temp_o_led;
 
 //100hz
 always @(posedge i_clock, count, t100) begin

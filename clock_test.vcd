@@ -1,0 +1,37 @@
+$date
+	Tue Sep 23 15:08:44 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module clock_test $end
+$var reg 1 ! i_clock $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0!
+$end
+#20000
+1!
+#40000
+0!
+#60000
+1!
+#80000
+0!
+#100000
+1!
+#120000
+0!
+#140000
+1!
+#160000
+0!
+#180000
+1!
+#200000
+0!

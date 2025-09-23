@@ -1,7 +1,7 @@
 module led_blinker_tb;
 
     reg i_clock, i_enable, i_switch_1, i_switch_2;
-    wire o_led_drive;
+    wire o_led_drive, dbg_t100, dbg_t50, dbg_t10, dgb_t1;
 
     led_blinker #(
         .c100(10),
@@ -12,7 +12,13 @@ module led_blinker_tb;
         .i_clock(i_clock),
         .i_enable(i_enable),
         .i_switch_1(i_switch_1),
-        .i_switch_2(i_switch_2)
+        .i_switch_2(i_switch_2),
+        .o_led_drive(o_led_drive),
+        .dbg_t100(dbg_t100),
+        .dbg_t50(dbg_t50),
+        .dbg_t10(dbg_t10),
+        .dbg_t1(dbg_t1),
+        .dbg_temp_o_led(dbg_temp_o_led)
     );
 
     initial begin
@@ -32,6 +38,8 @@ module led_blinker_tb;
         $dumpfile("led_blinker.vcd");
         @(posedge i_enable);
         $dumpvars(0, led_blinker_tb);
+        $monitor("Time=%0t | t100=%b t50=%b t10=%b t1=%b temp_o_led=%b o_led_drive=%b", 
+                $time, dbg_t100, dbg_t50, dbg_t10, dbg_t1, dbg_temp_o_led, o_led_drive);
         for (i = 0; i<4; i=i+1) begin
             {i_switch_1, i_switch_2} = i[1:0];
             #100;
