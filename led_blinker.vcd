@@ -1,0 +1,107 @@
+$date
+	Tue Sep 23 14:47:47 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module led_blinker_tb $end
+$var reg 1 ! i_clock $end
+$var reg 1 " i_enable $end
+$var reg 1 # i_switch_1 $end
+$var reg 1 $ i_switch_2 $end
+$var integer 32 % i [31:0] $end
+$scope module dut $end
+$var wire 1 ! i_clock $end
+$var wire 1 " i_enable $end
+$var wire 1 # i_switch_1 $end
+$var wire 1 $ i_switch_2 $end
+$var wire 1 & o_led_drive $end
+$var reg 25 ' count [24:0] $end
+$var reg 1 ( t1 $end
+$var reg 1 ) t10 $end
+$var reg 1 * t100 $end
+$var reg 1 + t50 $end
+$var reg 1 , temp_o_led $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#200000000000000
+$dumpvars
+0,
+1+
+1*
+1)
+1(
+b101 '
+0&
+b0 %
+0$
+0#
+1"
+0!
+$end
+#220000000000000
+1&
+b110 '
+1,
+1!
+#240000000000000
+0!
+#260000000000000
+b111 '
+1!
+#280000000000000
+0!
+#300000000000000
+b1000 '
+1!
+1$
+b1 %
+#320000000000000
+0!
+#340000000000000
+b1001 '
+1!
+#360000000000000
+0!
+#380000000000000
+0*
+b1010 '
+1!
+#400000000000000
+0!
+1#
+0$
+b10 %
+#420000000000000
+b1011 '
+1*
+1!
+#440000000000000
+0!
+#460000000000000
+b1100 '
+1!
+#480000000000000
+0!
+#500000000000000
+b1101 '
+1!
+1$
+b11 %
+#520000000000000
+0!
+#540000000000000
+b1110 '
+1!
+#560000000000000
+0!
+#580000000000000
+b1111 '
+1!
+#600000000000000
+0!
+b100 %
