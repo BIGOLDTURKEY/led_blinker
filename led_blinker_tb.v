@@ -17,13 +17,15 @@ module led_blinker_tb;
 
     initial begin
         i_enable = 0;
-        #200 i_enable = 1;
+        #20 i_enable = 1;
     end
 
     initial begin
         i_clock = 0;
     end
-    always #20 i_clock = ~i_clock;
+    always begin
+        #20 i_clock = ~i_clock;
+    end
 
     integer i;
     initial begin
