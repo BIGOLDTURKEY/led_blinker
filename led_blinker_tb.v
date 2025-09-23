@@ -25,11 +25,11 @@ module led_blinker_tb;
     end
     always #20 i_clock = ~i_clock;
 
+    integer i;
     initial begin
         $dumpfile("led_blinker.vcd");
         @(posedge i_enable);
         $dumpvars(0, led_blinker_tb);
-        integer i;
         for (i = 0; i<4; i=i+1) begin
             {i_switch_1, i_switch_2} = i[1:0];
             #100;
