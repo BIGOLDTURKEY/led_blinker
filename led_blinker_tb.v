@@ -38,17 +38,15 @@ module led_blinker_tb;
                 $time, dbg_t100, dbg_t50, dbg_t10, dbg_t1, dbg_temp_o_led, o_led_drive);
     end
 
-    integer i, j;
+    integer i;
     initial begin
         $dumpfile("led_blinker.vcd");
         @(posedge i_enable);
         $dumpvars(0, led_blinker_tb);
         for (i = 0; i<4; i=i+1) begin
-            for (j = 0; j<4; j=j+1) begin
-                {i_switch_1, i_switch_2} = i[1:0];
-                #1000;
-            end
-        end 
+            {i_switch_1, i_switch_2} = i[1:0];
+            #100000;
+        end
         $finish;
     end
 endmodule

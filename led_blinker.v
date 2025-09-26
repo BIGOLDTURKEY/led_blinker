@@ -17,7 +17,7 @@ module led_blinker #(
 //1  1  0  10
 //1  1  1  1
 
-//keep in mind below 50% duty cycle!
+//keep in mind below that there is 50% duty cycle!
 //keep in mind count starts at 0 so do minus 1!
 //25MHz = 25,000,000Hz
 //100Hz --> count=125,000-1
@@ -41,37 +41,25 @@ assign dbg_t10 = t10;
 assign dbg_t1 = t1;
 assign dbg_temp_o_led = temp_o_led;
 
-//100hz
-always @(posedge i_clock) begin
-    if (count%(c100)==0&count!=0) begin
-        $display("hello100");
-        t100 <= !t100;
-    end 
-end
+// //100hz
+// always @(posedge i_clock) begin
+     
+// end
 
-//50hz
-always @(posedge i_clock) begin
-    if (count%(c50)==0&count!=0) begin
-        $display("hello50");
-        t50 <= !t50;
-    end 
-end
+// //50hz
+// always @(posedge i_clock) begin
+    
+// end
 
-//10hz
-always @(posedge i_clock) begin
-    if (count%(c10)==0&count!=0) begin
-        $display("hello10");
-        t10 <= !t10;
-    end 
-end
+// //10hz
+// always @(posedge i_clock) begin
+    
+// end
 
-//1hz
-always @(posedge i_clock) begin
-    if (count%(c1)==0&count!=0) begin
-        $display("hello1");
-        t1 <= !t1;
-    end
-end
+// //1hz
+// always @(posedge i_clock) begin
+    
+// end
 
 //count incrementer
 always @(posedge i_clock) begin
@@ -80,9 +68,18 @@ always @(posedge i_clock) begin
     end 
     else begin
         count <= count+1;
-        $display("helloadd");
-        $display(count);
-        $display((count%(c10)==0)&&(count!=0));
+    end
+    if (count%(c100)==0&count!=0) begin
+        t100 <= !t100;
+    end
+    if (count%(c50)==0&count!=0) begin
+        t50 <= !t50;
+    end 
+    if (count%(c10)==0&count!=0) begin
+        t10 <= !t10;
+    end 
+    if (count%(c1)==0&count!=0) begin
+        t1 <= !t1;
     end
     if (!i_switch_1&!i_switch_2) begin
         temp_o_led <= t100;
