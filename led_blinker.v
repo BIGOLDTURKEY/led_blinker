@@ -42,47 +42,56 @@ assign dbg_t1 = t1;
 assign dbg_temp_o_led = temp_o_led;
 
 //100hz
-always @(posedge i_clock, count, t100) begin
-    if (count%(c100)==0) begin
-        t100 = !t100;
-    end if (!i_switch_1&!i_switch_2) begin
-        temp_o_led = t100;
-    end
+always @(posedge i_clock) begin
+    if (count%(c100)==0&count!=0) begin
+        $display("hello100");
+        t100 <= !t100;
+    end 
 end
 
 //50hz
-always @(posedge i_clock, count, t50) begin
-    if (count%(c50)==0) begin
-        t50 = !t50;
-    end if (!i_switch_1&i_switch_2) begin
-        temp_o_led = t50;
-    end
+always @(posedge i_clock) begin
+    if (count%(c50)==0&count!=0) begin
+        $display("hello50");
+        t50 <= !t50;
+    end 
 end
 
 //10hz
-always @(posedge i_clock, count, t10) begin
-    if (count%(c10)==0) begin
-        t10 = !t10;
-    end if (i_switch_1&!i_switch_2) begin
-        temp_o_led = t10;
-    end
+always @(posedge i_clock) begin
+    if (count%(c10)==0&count!=0) begin
+        $display("hello10");
+        t10 <= !t10;
+    end 
 end
 
 //1hz
-always @(posedge i_clock, count, t1) begin
-    if (count%(c1)==0) begin
-        t1 = !t1;
-    end if (!i_switch_1&!i_switch_2) begin
-        temp_o_led = t1;
+always @(posedge i_clock) begin
+    if (count%(c1)==0&count!=0) begin
+        $display("hello1");
+        t1 <= !t1;
     end
 end
 
 //count incrementer
 always @(posedge i_clock) begin
     if (count>=25000000) begin
-        count=0;
-    end else begin
-        count = count+1;
+        count <= 0;
+    end 
+    else begin
+        count <= count+1;
+        $display("helloadd");
+        $display(count);
+        $display((count%(c10)==0)&&(count!=0));
+    end
+    if (!i_switch_1&!i_switch_2) begin
+        temp_o_led <= t100;
+    end else if (!i_switch_1&i_switch_2) begin
+        temp_o_led <= t50;
+    end else if (i_switch_1&!i_switch_2) begin
+        temp_o_led <= t10;
+    end else if (i_switch_1&i_switch_2) begin
+        temp_o_led <= t1;
     end
 end
 
